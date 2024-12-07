@@ -17,6 +17,7 @@ public class AvaliacaoProduto implements Serializable {
 
     private Integer nota;
 
+    private String descricao;
 
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id", nullable = false,
@@ -44,6 +45,14 @@ public class AvaliacaoProduto implements Serializable {
 
     public void setNota(Integer nota) {
         this.nota = nota;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Pessoa getPessoa() {
