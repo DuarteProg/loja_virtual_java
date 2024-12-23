@@ -3,6 +3,7 @@ package duarte.lojavirtual.duarte.lojavirtual.security;
 import duarte.lojavirtual.duarte.lojavirtual.ApplicationContextLoad;
 import duarte.lojavirtual.duarte.lojavirtual.model.Usuario;
 import duarte.lojavirtual.duarte.lojavirtual.repository.UsuarioRepository;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
@@ -79,6 +80,10 @@ public class JWTTokenAutenticacaoService {
 
         } catch (SignatureException e) {
             response.getWriter().write("Token está inválido");
+
+        } catch (ExpiredJwtException e) {
+            response.getWriter().write("Token está expirado, efetue o login novamente.");
+
         } finally {
             liberacaoCors(response);
         }
