@@ -55,7 +55,7 @@ public class JWTTokenAutenticacaoService {
 
             String user = Jwts.parser()
                     .setSigningKey(SECRET)
-                    .parseClaimsJwt(tokenLimpo)
+                    .parseClaimsJws(tokenLimpo)
                     .getBody().getSubject();
 
             if (user != null) {
