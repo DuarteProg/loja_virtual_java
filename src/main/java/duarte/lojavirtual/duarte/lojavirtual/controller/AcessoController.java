@@ -1,5 +1,6 @@
 package duarte.lojavirtual.duarte.lojavirtual.controller;
 
+import duarte.lojavirtual.duarte.lojavirtual.ExceptionCustomJava;
 import duarte.lojavirtual.duarte.lojavirtual.model.Acesso;
 import duarte.lojavirtual.duarte.lojavirtual.repository.AcessoRepository;
 import duarte.lojavirtual.duarte.lojavirtual.service.AcessoService;
@@ -45,9 +46,13 @@ public class AcessoController {
     }
 
     @GetMapping(value = "**/obterAcesso/{id}")
-    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) {
+    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) throws ExceptionCustomJava {
 
-      Acesso acesso = acessoRepository.findById(id).get();
+        Acesso acesso = acessoRepository.findById(id).orElse(null);
+
+        if (acesso == null) {
+            throw new ExceptionCustomJava("Não encontrou acesso com código: " + id);
+        }
 
         return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
     }
