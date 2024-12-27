@@ -2,6 +2,7 @@ package duarte.lojavirtual;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import duarte.lojavirtual.duarte.lojavirtual.ExceptionCustomJava;
 import duarte.lojavirtual.duarte.lojavirtual.LojaVirtualJavaApplication;
 import duarte.lojavirtual.duarte.lojavirtual.controller.AcessoController;
 import duarte.lojavirtual.duarte.lojavirtual.model.Acesso;
@@ -52,7 +53,7 @@ public class LojaVirtualJavaApplicationTests {
     }
 
     @Test
-    public void testCadastraAcesso() {
+    public void testCadastraAcesso() throws ExceptionCustomJava {
 
         Acesso acesso = new Acesso();
 

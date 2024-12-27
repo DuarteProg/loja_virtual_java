@@ -22,7 +22,17 @@ public class AcessoController {
 
     @ResponseBody
     @PostMapping(value = "**/salvarAcesso")
-    public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) {
+    public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionCustomJava {
+
+        if (acesso.getId() == null) {
+            List<Acesso> acessos = acessoRepository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
+
+            if (!acessos.isEmpty()) {
+                throw new ExceptionCustomJava("Já existe acesso a descrição: " + acesso.getDescricao());
+            }
+
+        }
+
 
         Acesso acessoSalvo = acessoService.save(acesso);
 
@@ -60,7 +70,7 @@ public class AcessoController {
     @GetMapping(value = "**/buscarPorDesc/{desc}")
     public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) {
 
-        List<Acesso> acesso = acessoRepository.buscarAcessoDesc(desc);
+        List<Acesso> acesso = acessoRepository.buscarAcessoDesc(desc.toUpperCase());
 
         return new ResponseEntity<List<Acesso>>(acesso, HttpStatus.OK);
     }
